@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
-import { TesteCaixaModule } from './modules/teste_caixa/teste_caixa.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HackatonModule } from './modules/hackaton_typeorm/hackaton.module';
 
 @Module({
   imports: [
-    TesteCaixaModule,
+    HackatonModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
       host: 'localhost',
-      port: 1442,
+      port: 1433,
       username: 'caixa',
       password: 'caixa',
       database: 'Caixa',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
+      synchronize: true,
     }),
   ],
   controllers: [],
