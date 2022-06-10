@@ -24,9 +24,14 @@ export class RealizeController {
     return this.service.findOne(params);
   }
 
-  @Get('join')
-  findJoin() {
-    return this.service.join();
+  @Get('limit/:limit')
+  findAllQueryBuilder(@Param() params: string) {
+    return this.service.findAllQueryBuilder(params);
+  }
+
+  @Get('join/:limit')
+  findJoinQueryBuilder(@Param() params: string) {
+    return this.service.queryBuilderJoin(params);
   }
 
   @Post()

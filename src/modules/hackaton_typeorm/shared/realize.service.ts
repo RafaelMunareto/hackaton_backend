@@ -1,8 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
+import { resourceLimits } from 'worker_threads';
 import { CreateRealizeDto } from './dto/create_realize_dto';
 import { UpdateRealizeDto } from './dto/update_realize_dto';
+import { Parametros } from './entities/parametros.entity';
 import { Realize } from './entities/realize.entity';
 
 @Injectable()
@@ -15,23 +17,47 @@ export class RealizeService {
   findAll() {
     return this.realizeRepository.find();
   }
+  async findAllQueryBuilder(params) {
+    const realize = await this.realizeRepository
+      .createQueryBuilder('Realize')
+      .limit(params.limit)
+      .getMany();
 
-  join() {
-    return this.realizeRepository.find();
+    if (!realize) {
+      throw new HttpException('Item não encontrado', HttpStatus.NOT_FOUND);
+    }
+    return realize;
+  }
+
+  async queryBuilderJoin(params) {
+    const realize = await this.realizeRepository
+      .createQueryBuilder('Realize')
+      .limit(params.limit)
+      .innerJoinAndSelect(
+        Parametros,
+        'parametros',
+        'parametros.iItemRealize = realize.iItemRealize',
+      )
+      .getMany();
+
+    if (!realize) {
+      throw new HttpException('Item não encontrado', HttpStatus.NOT_FOUND);
+    }
+    return realize;
   }
 
   findOne(params) {
-    const course = this.realizeRepository.find({
+    const realize = this.realizeRepository.find({
       where: {
         iAnoMes: +params.iAnoMes,
         iItemRealize: +params.iItemRealize,
         iCgcUnidade: +params.iCgcUnidade,
       },
     });
-    if (!course) {
+    if (!realize) {
       throw new HttpException('Item não encontrado', HttpStatus.NOT_FOUND);
     }
-    return course;
+    return realize;
   }
 
   create(body: CreateRealizeDto) {
