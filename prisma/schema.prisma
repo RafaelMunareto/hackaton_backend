@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model Realize {
+  iAnoMes                     Int
+  iNichoRealize               Int      @db.SmallInt
+  iItemRealize                Int
+  iNivelRede                  Int      @db.TinyInt
+  iCgcUnidade                 Int      @db.SmallInt
+  iNaturalUnidade             Int      @db.SmallInt
+  nObjetivoAcumulado          Float?
+  nRealizadoAcumulado         Float?
+  fPercRealizado              Float?
+  fPercEsperado               Float?
+  fPercAtingido               Float?
+  fPonto                      Float?
+  iGrupoRealize               Int      @db.SmallInt
+  fPesoOficial                Float?
+  fPesoReal                   Float?
+  iCgcUnidadeSuperior         Int      @db.SmallInt
+  iCgcVp                      Int      @db.SmallInt
+  iAvaliacao                  Int      @db.TinyInt
+  dReferencia                 DateTime @db.Date
+  dAtualizacaoItemMetaSidem   DateTime @db.Date
+  idArquivo                   Int
+  fPercAtingidoSimulado       Float?
+  fPesoRealSimulado           Float?
+  nRealizadoAcumuladoSimulado Float?
+  fPontoSimulado              Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model RealizeParametros {
+  iGrupoRealize             Int       @db.SmallInt
+  iAnoMes                   Int
+  iItemRealize              Int
+  vItemRealize              String    @db.VarChar(200)
+  iItemRealizePai           Int?
+  iItemMetaSidem            Int
+  vFormulaDesc              String?   @db.VarChar(100)
+  vFormula                  String?   @db.VarChar(100)
+  vFormula2                 String?   @db.VarChar(100)
+  vFormulaPC                String?   @db.VarChar(100)
+  fPeso                     Float?
+  fPontuacaoMinima          Float?
+  fPontuacaoMinima2         Float?
+  fPontuacaoMaxima          Float?
+  fPontuacaoMaxima2         Float?
+  dAtualizacaoItemMetaSidem DateTime? @db.SmallDateTime
+  iOrdemRealize             Int       @db.SmallInt
+  dReferencia               DateTime  @db.Date
+  idArquivo                 Int
+  iPeso                     Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model Realize_temp {
+  iAnoMes                   String  @db.VarChar(200)
+  iNichoRealize             String  @db.VarChar(200)
+  iItemRealize              String  @db.VarChar(200)
+  iNivelRede                String  @db.VarChar(200)
+  iCgcUnidade               String  @db.VarChar(200)
+  iNaturalUnidade           String  @db.VarChar(200)
+  nObjetivoAcumulado        String? @db.VarChar(200)
+  nRealizadoAcumulado       String? @db.VarChar(200)
+  fPercRealizado            String? @db.VarChar(200)
+  fPercEsperado             String? @db.VarChar(200)
+  fPercAtingido             String? @db.VarChar(200)
+  fPonto                    String? @db.VarChar(200)
+  iGrupoRealize             String  @db.VarChar(200)
+  fPesoOficial              String? @db.VarChar(200)
+  fPesoReal                 String? @db.VarChar(200)
+  iCgcUnidadeSuperior       String  @db.VarChar(200)
+  iCgcVp                    String  @db.VarChar(200)
+  iAvaliacao                String  @db.VarChar(200)
+  dReferencia               String  @db.VarChar(200)
+  dAtualizacaoItemMetaSidem String  @db.VarChar(200)
+  idArquivo                 String  @db.VarChar(200)
+
+  @@ignore
+}
+
+model tbl_qtde_assist_gerentes_REDE_VIRED {
+  NU_UNIDADE          Int     @id(map: "PK_tbl_qtde_assist_gerentes_REDE_VIRED")
+  UNIDADE             String  @db.NVarChar(60)
+  TIPO_UNIDADE        String  @db.NVarChar(3)
+  UNI_SUP             Int
+  ASSISTENTE_VAREJO   Int
+  GERENTE_VAREJO      Int
+  GERENTE_CARTEIRA_PF Int
+  GERENTE_CARTEIRA_PJ Int
+  QTD_EMPREGADOS      Int
+  GERENTE_GERAL       Int?
+  TBN                 String? @db.NChar(100)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model tbl_unidades_hierarquia_AnoMesAtual {
+  iAnoMes     Int?
+  iUnidade    Int      @db.SmallInt
+  vUnidade    String?  @db.VarChar(50)
+  vUnSigla    String?  @db.VarChar(10)
+  vUnTipo     String?  @db.VarChar(10)
+  iUnSuperior Int      @db.SmallInt
+  iNivelRede  Int      @db.SmallInt
+  iAg         Int?     @db.SmallInt
+  iSEV        Int?     @db.SmallInt
+  iSEH        Int?     @db.SmallInt
+  iSEG        Int?     @db.SmallInt
+  iSEP        Int?     @db.SmallInt
+  iSea        Int?     @db.SmallInt
+  iSR         Int?     @db.SmallInt
+  iSN         Int?     @db.SmallInt
+  iVP         Int?     @db.SmallInt
+  bAvValida   Boolean?
+  vAvTipo     String   @db.VarChar(20)
+
+  @@ignore
+}
