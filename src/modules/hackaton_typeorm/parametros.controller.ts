@@ -7,9 +7,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateParametrosDto } from './shared/dto/create_parametros_dto';
-import { UpdateParametrosDto } from './shared/dto/update_parametros_dto';
-import { ParametrosService } from './shared/parametros.service';
+import { CreateParametrosDto } from './dto/create_parametros_dto';
+import { UpdateParametrosDto } from './dto/update_parametros_dto';
+import { ParametrosService } from './parametros.service';
 
 @Controller('parametros')
 export class ParametrosController {

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HackatonModule } from './modules/hackaton_typeorm/hackaton.module';
 import { HackatonPrismaModule } from './modules/hackaton_prisma/hackaton_prisma.module';
+import { HackatonTypeOrmModule } from './modules/hackaton_typeorm/hackatonTypeOrm.module';
 
 @Module({
   imports: [
-    HackatonModule,
-
+    //typorm
+    HackatonTypeOrmModule,
     TypeOrmModule.forRoot({
       type: 'mssql',
       host: 'localhost',
@@ -18,8 +18,9 @@ import { HackatonPrismaModule } from './modules/hackaton_prisma/hackaton_prisma.
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ConfigModule.forRoot(),
-    HackatonPrismaModule,
+    //prisma
+    // ConfigModule.forRoot(),
+    // HackatonPrismaModule,
   ],
   controllers: [],
   providers: [],

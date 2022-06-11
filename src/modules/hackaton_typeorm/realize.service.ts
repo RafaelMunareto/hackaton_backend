@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
-import { resourceLimits } from 'worker_threads';
 import { CreateRealizeDto } from './dto/create_realize_dto';
 import { UpdateRealizeDto } from './dto/update_realize_dto';
 import { Parametros } from './entities/parametros.entity';
@@ -19,7 +18,7 @@ export class RealizeService {
   }
   async findAllQueryBuilder(params) {
     const realize = await this.realizeRepository
-      .createQueryBuilder('Realize')
+      .createQueryBuilder()
       .limit(params.limit)
       .getMany();
 
@@ -31,7 +30,7 @@ export class RealizeService {
 
   async queryBuilderJoin(params) {
     const realize = await this.realizeRepository
-      .createQueryBuilder('Realize')
+      .createQueryBuilder()
       .limit(params.limit)
       .innerJoinAndSelect(
         Parametros,

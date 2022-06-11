@@ -7,10 +7,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateRealizeDto } from './shared/dto/create_realize_dto';
-import { UpdateRealizeDto } from './shared/dto/update_realize_dto';
-import { RealizeService } from './shared/realize.service';
-
+import { CreateRealizeDto } from './dto/create_realize_dto';
+import { UpdateRealizeDto } from './dto/update_realize_dto';
+import { RealizeService } from './realize.service';
 @Controller('realize')
 export class RealizeController {
   constructor(private service: RealizeService) {}
