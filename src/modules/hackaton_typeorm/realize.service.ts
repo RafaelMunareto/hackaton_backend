@@ -31,12 +31,14 @@ export class RealizeService {
   async queryBuilderJoin(params) {
     const realize = await this.realizeRepository
       .createQueryBuilder()
-      .limit(params.limit)
-      .innerJoinAndSelect(
+      .innerJoin(
         Parametros,
-        'parametros',
-        'parametros.iItemRealize = realize.iItemRealize',
+        'param',
+        'param.iItemRealize = realize.iItemRealize ' +
+          'AND param.iAnoMes = realize.iAnoMes ' +
+          'AND param.iGrupoRealize = realize.iGrupoRealize',
       )
+      .limit(params.limit)
       .getMany();
 
     if (!realize) {
